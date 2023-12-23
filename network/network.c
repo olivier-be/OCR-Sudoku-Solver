@@ -60,7 +60,7 @@ double active_func(struct Neural neural, size_t size) {
     return res;
 }
 
-size_t softmax(struct Neural* neural, size_t size, double* res) {
+int softmax(struct Neural* neural, size_t size, double* res) {
     double down = 0;
     for (size_t i = 0; i < size; i++) {
         *(res + i) = exp((*(neural + i)).value);
@@ -82,7 +82,7 @@ size_t softmax(struct Neural* neural, size_t size, double* res) {
     return p;
 }
 
-size_t use_network(struct Neural** network) {
+int use_network(struct Neural** network) {
 
     size_t n = 1;
     size_t i = 0;
@@ -96,7 +96,9 @@ size_t use_network(struct Neural** network) {
         n++;
     }
     double res[10];
-    return softmax(*(network + 2), e[2], res);
+    int tmp = softmax(*(network + 2), e[2], res);
+    fprintf(stderr, "Foud maximum: %d (%f)\n", tmp, res[tmp]);
+    return tmp;
 }
 
 void free_network(struct Neural** network) {

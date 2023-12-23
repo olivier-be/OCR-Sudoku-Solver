@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+
 double sigmoid_prime(double z) { return sigmoid(z) * (1 - sigmoid(z)); }
 
 double sigmoid_prime_o(double z) { return z * (1 - z); }
@@ -182,7 +183,7 @@ void backpropagation(struct Neural** network, size_t exepted, double* set,
 void gradient_descent(
     struct Neural** network, double** gradientw, double** gradientb) {
     size_t k = 0, p = 0, j = 2;
-    double learning_rate = 0.8;
+    double learning_rate = 0.5;
     while (j > 0) {
         k = 0;
         while (k < e[j]) {
@@ -231,7 +232,7 @@ void train(struct Neural** network, double** vectorin, int* vectorout,
     size_t pt = 0, same = 0;
     size_t res = 0;
     size_t nb = 0;
-    size_t obj = (size_t)(nbtest * 0.95);
+    size_t obj = (size_t)(nbtest * 0.10);
     printf("%zu obj \n", obj);
     while (res < obj) {
         if (same == 30) {
@@ -269,16 +270,15 @@ void train(struct Neural** network, double** vectorin, int* vectorout,
             gradient_descent(network, gradientw, gradientb);
             pt++;
         }
-	if (nb == 10)
-	{
         size_t r = test_network(network, vectorin, vectorout, nbtest);
-         printf("nb g %zu\n",r);
+        // printf("nb g %zu\n",r);
         if (res == r) {
             same++;
         } else {
             same = 0;
             res = r;
         }
+        nb++;
         if (same == 10) {
             same = 0;
             network = initnetwork();
@@ -292,6 +292,7 @@ void train(struct Neural** network, double** vectorin, int* vectorout,
                 networkb = network;
             }
         }
+        if (15 == nb) {
             if (r > m) {
                 if (networkb != network) {
                     free_network(networkb);
@@ -303,8 +304,7 @@ void train(struct Neural** network, double** vectorin, int* vectorout,
             // printf("make 1000 \n");
             nb = 0;
             save(networkb);
-	}
-	nb ++;
+        }
     }
     free2d(gradientw, 2);
     free2d(gradientb, 2);

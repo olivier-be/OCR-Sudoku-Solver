@@ -1,4 +1,4 @@
-#include "load_picture.h"
+// #include "load_picture.h"
 #include "network.h"
 #include <dirent.h>
 #include <stdio.h>
@@ -65,10 +65,10 @@ double findvalue(FILE* inputFile, int* endofline, char* word2) {
     return d;
 }
 
-struct Neural** initfromfile() {
+struct Neural** initfromfile(const char* file) {
     FILE* inputFile;
     int endofline = 0;
-    inputFile = fopen("test2.txt", "r");
+    inputFile = fopen(file, "r");
     if (inputFile == NULL) {
         fprintf(stderr, "Cannot open file \n");
         exit(0);
@@ -184,88 +184,75 @@ double findvalue_dataset(FILE* inputFile, int* endofline, char* word2) {
     return d;
 }
 
-void get_dataset(size_t nb ,
-    size_t len,
-    double*** dataset_p ,
-    int** output_p ) {
-       double **dataset = *dataset_p;
-       int *output = *output_p;
-       FILE * inputFile;
-       int endofline= 0;
-       inputFile = fopen( "dataset.txt", "r" );
-       if ( inputFile == NULL )
-       {
-       fprintf( stderr, "Cannot open file \n" );
-       exit( 0 );
-       }
-       dataset = malloc(sizeof(double *) * nb);
-       output = malloc(sizeof(int) * nb);
-       size_t n = 0;
-       char word[10];
-       while ( n< nb )
-       {
-     *(dataset + n) = malloc( sizeof(double ) * (len + 1));
-     size_t i = 0;
-     while (i < len + 1)
-     {
+void get_dataset(size_t nb, size_t len, double*** dataset_p, int** output_p) {
+    double** dataset = *dataset_p;
+    int* output = *output_p;
+    FILE* inputFile;
+    int endofline = 0;
+    inputFile = fopen("dataset.txt", "r");
+    if (inputFile == NULL) {
+        fprintf(stderr, "Cannot open file \n");
+        exit(0);
+    }
+    dataset = malloc(sizeof(double*) * nb);
+    output = malloc(sizeof(int) * nb);
+    size_t n = 0;
+    char word[10];
+    while (n < nb) {
+        *(dataset + n) = malloc(sizeof(double) * (len + 1));
+        size_t i = 0;
+        while (i < len + 1) {
 
-     endofline = 0;
-     double t = (findvalue_dataset(inputFile, &endofline,word));
+            endofline = 0;
+            double t = (findvalue_dataset(inputFile, &endofline, word));
 
-     if (endofline == 1)
-     {
-     *(output + n) =(int)t;
-     }
-     else
-     {
-     (*(*(dataset + n) + i)) = t;
-     }
-     i++;
-     }
-     n++;
-     }
-     fclose( inputFile );
-     *dataset_p=dataset;
-     *output_p= output;
-     }
-
-
-
-     void show_dir_content(char * path,int res)
-     {
-     DIR *d;
-     struct dirent *dir;
-     printf(" 8 %s test \n",path );
-     d = opendir(path);
-     if (d) {
-     while ((dir = readdir(d)) != NULL) {
-     if(dir-> d_type != DT_DIR || 0 )
-     {
-     char d_path[255];
-     sprintf(d_path,"%s/%.253s", path, dir->d_name);
-     double * ve = vector_from_image(d_path);
-     save_dataset(&ve,&res,1,784,1);
-     free(ve);
-     }
-     }
-     closedir(d);
-     }
+            if (endofline == 1) {
+                *(output + n) = (int)t;
+            } else {
+                (*(*(dataset + n) + i)) = t;
+            }
+            i++;
+        }
+        n++;
+    }
+    fclose(inputFile);
+    *dataset_p = dataset;
+    *output_p = output;
 }
 
-void add_dataset_dir(char* path ) {
-       DIR *d;
-       struct dirent *dir;
-       d = opendir(path);
-       if (d) {
-       while ((dir = readdir(d)) != NULL) {
-       printf("%s\n", dir->d_name);
-       if(dir-> d_type == DT_DIR && * (dir->d_name) != '.')
-       {
-       char d_path[255];
-       sprintf(d_path,"%s/%.253s", path, dir->d_name);
-       show_dir_content(d_path, *(dir->d_name) - '0');
-       }
-       }
-       closedir(d);
-       }
+void show_dir_content(char* path, int res) {
+    DIR* d;
+    res = res;
+    struct dirent* dir;
+    printf(" 8 %s test \n", path);
+    d = opendir(path);
+    if (d) {
+        while ((dir = readdir(d)) != NULL) {
+            if (dir->d_type != 4 || 0) {
+                char d_path[255];
+                sprintf(d_path, "%s/%.253s", path, dir->d_name);
+               // double* ve = vector_from_image(d_path);
+               // save_dataset(&ve, &res, 1, 784, 1);
+               // free(ve);
+            }
+        }
+        closedir(d);
+    }
+}
+
+void add_dataset_dir(char* path __attribute__((unused))) {
+    DIR* d;
+    struct dirent* dir;
+    d = opendir(path);
+    if (d) {
+        while ((dir = readdir(d)) != NULL) {
+            printf("%s\n", dir->d_name);
+            if (dir->d_type == 4 && *(dir->d_name) != '.') {
+                char d_path[255];
+                sprintf(d_path, "%s/%.253s", path, dir->d_name);
+                show_dir_content(d_path, *(dir->d_name) - '0');
+            }
+        }
+        closedir(d);
+    }
 }

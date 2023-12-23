@@ -1,26 +1,22 @@
-# Makefile
+LIB_SRC = network.c train_network.c save_network.c
+SRC = network.c train_network.c  save_network.c main.c
+CFLAGS += `pkg-config --cflags SDL2_image`
+LFLAGS += `pkg-config --libs sdl2` `pkg-config --libs SDL2_image` -lm
 
-CC = gcc
-CPPFLAGS = -MMD
-CFLAGS = -Wall -Wextra `pkg-config --cflags sdl2` -g3 -fsanitize=address
-LDLIBS = 
-LDFLAGS = -fsanitize=address
-LDLIBS = `pkg-config --libs sdl2` -lSDL2_image -lm
+LIB_OBJ = $(addprefix $(OBJ_DIR)/network_, $(notdir $(LIB_SRC:.c=.c.o)))
+OBJ = $(addprefix $(OBJ_DIR)/network_, $(notdir $(SRC:.c=.c.o)))
 
+all: $(AI_LIB) $(AI_EXE) $(AI_HEXA_EXE)
 
-SRC = network.c load_picture.c train_network.c save_network.c main.c
-OBJ = ${SRC:.c=.o}
-DEP = ${SRC:.c=.d}
+$(AI_LIB): $(LIB_OBJ)
+	@echo "AR                       $@"
+	@$(AR) -rcs $@ $^
 
-all: main
-main : ${OBJ}
+$(AI_EXE): $(OBJ)
+	@echo "LD                       $@"
+	@$(LD) -o $@ $^ $(LFLAGS) -lutils
 
--include ${DEP}
+$(OBJ_DIR)/network_%.c.o: %.c
+	@echo "CC                       $@"
+	@$(CC) -o $@ -c $< $(CFLAGS) -I$(UTILS_DIR)
 
-.PHONY: clean
-
-clean:
-	${RM} ${OBJ}
-	${RM} ${DEP}
-	${RM} load train save main
-# END

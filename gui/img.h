@@ -5,6 +5,8 @@
 
 #include "line.h"
 
+extern struct Neural** network;
+
 typedef enum ImageModifier {
     None = 0,
     GrayScale,
@@ -31,10 +33,13 @@ struct ImageClass {
 
 GType image_get_type(void) G_GNUC_CONST;
 GtkWidget* image_new(const char* file);
+GtkWidget* image_from_pixbuf(GdkPixbuf* buffer);
 
 void image_to_display(Image* image, ImageModifier modifier);
 void image_rotate(Image* image, double angle);
-void image_get_case(Image* image);
+double image_detect_rotation(Image* image);
+int** image_get_case(Image* image);
 void image_draw_line(Image* image, const Line* line);
+GdkPixbuf* image_get_displayed(Image* image);
 
 G_END_DECLS

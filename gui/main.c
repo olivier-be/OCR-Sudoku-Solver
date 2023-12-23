@@ -1,16 +1,16 @@
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
 
-#include "image.h"
-#include "logger.h"
-
 #include "callbacks.h"
 #include "img.h"
 #include "menu.h"
+#include "network.h"
+#include "save_network.h"
 #include "tools.h"
 
+struct Neural** network = NULL;
+
 int main(int argc, char** argv) {
-    log_init();
     GtkWidget* window = NULL;
     GtkWidget* vbox = NULL;
     GtkWidget* tools = NULL;
@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
     gtk_init(&argc, &argv);
 
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title(GTK_WINDOW(window), "Sudoku OSR");
+    gtk_window_set_title(GTK_WINDOW(window), "Sudoku OCR");
 
     vbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
     gtk_container_add(GTK_CONTAINER(window), vbox);
@@ -30,42 +30,6 @@ int main(int argc, char** argv) {
     notebook = gtk_notebook_new();
     menu_bar = menubar_create(notebook);
     tools_populate(tools, notebook);
-    {
-        GtkWidget* label = gtk_label_new("Sudoku");
-        GtkWidget* image = image_new("test/image_01.png");
-
-        gtk_notebook_append_page(GTK_NOTEBOOK(notebook), image, label);
-    }
-    {
-        GtkWidget* label = gtk_label_new("Sudoku");
-        GtkWidget* image = image_new("test/image_02.png");
-
-        gtk_notebook_append_page(GTK_NOTEBOOK(notebook), image, label);
-    }
-    {
-        GtkWidget* label = gtk_label_new("Sudoku");
-        GtkWidget* image = image_new("test/image_03.png");
-
-        gtk_notebook_append_page(GTK_NOTEBOOK(notebook), image, label);
-    }
-    {
-        GtkWidget* label = gtk_label_new("Sudoku");
-        GtkWidget* image = image_new("test/image_04.png");
-
-        gtk_notebook_append_page(GTK_NOTEBOOK(notebook), image, label);
-    }
-    {
-        GtkWidget* label = gtk_label_new("Sudoku");
-        GtkWidget* image = image_new("test/image_05.png");
-
-        gtk_notebook_append_page(GTK_NOTEBOOK(notebook), image, label);
-    }
-    {
-        GtkWidget* label = gtk_label_new("Sudoku");
-        GtkWidget* image = image_new("test/image_06.png");
-
-        gtk_notebook_append_page(GTK_NOTEBOOK(notebook), image, label);
-    }
     gtk_widget_show_all(notebook);
 
     gtk_paned_pack1(GTK_PANED(panels), tools, TRUE, TRUE);
@@ -79,6 +43,10 @@ int main(int argc, char** argv) {
 
     gtk_widget_show_all(window);
     gtk_main();
-    log_terminate();
+
+    if (network) {
+        free_network(network);
+    }
+
     return 0;
 }

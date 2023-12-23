@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Solver de Sudoku - Problèmes</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+  <meta property="og:title" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Imperial
+  * Updated: Nov 17 2023 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/imperial-free-onepage-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo mr-auto"><img src="assets/img/logo4.png" alt=""></a>
+      <!-- Uncomment below if you prefer to use a text logo -->
+      <!-- <h1 class="logo mr-auto"><a href="index.html">Imperial</a></h1> -->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto " href="index.html#portfolio">Retour</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->   
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Problèmes rencontrés au cours du développement</h2>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/aspects-techniques1.webp" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/aspects-techniques2.png" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/portfolio/aspects-techniques3.png" alt="">
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Projet information</h3>
+              <ul>
+                <li><strong>Catégorie</strong>: Problèmes</li>
+                <li><strong>Date du projet</strong>: 10 décembre 2023</li>
+              </ul>
+            </div>
+            <div class="portfolio-description"><br>
+              <h2>Résumé</h2>
+              <p>
+                Dataset <br>
+                Fuite de mémoire <br>
+                Usage de fonctions dépréciées <br>
+                Paramètres non utilisés <br>
+                Reconstruction de la grille, affichage et sauvegarde <br>
+              </p>
+            </div>
+          </div>
+
+          <div class="portfolio-description" >
+            <h2>Problèmes connus du code</h2>
+            <h4>Dataset</h4>
+            <p>
+              La recherche et la sélection d’un ensemble de données pour la reconnaissance optique de caractères
+              (OCR) axée sur des chiffres imprimés peuvent présenter plusieurs défis. Tout d’abord,
+              il peut être difficile de trouver un ensemble de données spécifiquement dédié aux chiffres imprimé,
+              car de nombreuses bases de données OCR incluent une variété de caractères. De plus,
+              la qualité des images et la diversité des polices peuvent considérablement varier, impactant la
+              performance du modèle. Certains ensembles de données peuvent au même titre présenter des
+              problèmes tels que des variations d’échelles, des distorsions ou des bruits, ce qui peut éventuellement
+              la tâche de reconnaissance plus complexe. En outre, la disponibilité d’un ensemble de
+              données étiqueté de manière adéquate, avec des annotations précises pour chaque chiffre, peut
+              être limitée, ce qui complique la formation et l’évaluation du modèle OCR.
+            </p>
+          </div>
+
+          <div class="portfolio-description" >
+            <h4>Fuite de mémoire</h4>
+            <p>
+              Au moment où ce rapport est écrit, il existe une fuite de mémoire importante localisée dans
+              la fonction de rotation de l’image. Il en existe également dans la fonction de transformation
+              de l’image (la fonction fournissant les niveaux de gris, la detection de contours ainsi que la
+              transformée de Hough).
+            </p>
+          </div>
+
+          <div class="portfolio-description" >
+            <h4>Usage de fonctions dépréciées</h4>
+            <p>
+              Dans certains morceaux du code, des fonctions dépréciées sont utilisées, faute d’avoir trouvé
+              de la documentation indiquant les fonctions "modernes" à utiliser.
+            </p>
+            <p>
+              Dans ce domaine se trouvent les fonctions <code>g_type_class_add_private</code> et <code>G_ADD_PRIVATE</code>
+              utilisées lors de la dérivation de la classe GtkDrawingArea.
+            </p>
+            <p>
+              Pour se débarasser de ces avertissements au titre de mesure temporaire, les avertissements
+              relatifs aux fonctions dépréciées ont été désactivés dans le fichier concerné.
+            </p>
+          </div>
+
+          <div class="portfolio-description" >
+            <h4>Paramètres non utilisés</h4>
+            <p>
+              Certaines fonctions demandent des paramètres qui ne seront pas utilisés dans le corps de la
+              fonction. Ceci provoque des avertissements inutiles qui ont été désactivés également. Ces fonctions
+              sont dans les fichiers <code>gui/callback.c</code> et <code>gui/img.c</code>. Dans ces deux fichiers, les avertissements
+              relatifs aux fonctions non utilisées ont été désactivés car non significatifs.
+            </p>
+          </div>
+
+          <div class="portfolio-description" >
+            <h4>Reconstruction de la grille, affichage et sauvegarde</h4>
+            <p>
+              Manipuler une image venant d’un <code>GdkPixbuf*</code> n’est pas une tâche aisée qui demande une
+              certaine concentration.. En effet sur GDK, les données d’une image sont un tableau de valeur
+              de taille : largeur*hauteur*(nombre de canaux) et contenant que des valeurs comprises entre 0
+              et 255.
+            </p>
+
+            <p>
+              Par exemple, le premier pixel (situé en haut à gauche) correspond au 3 ou 4 premières valeur
+              du tableau : le canal rouge, vert, bleu et si il y a un quatrième canal, alpha qui est la transparence.
+            </p>
+
+            <p>
+              Dès lors, nous avons donc été confrontés à de multiples et diverses erreurs dans notre code,
+              donnant une image non conforme à ce qui est attendu. Nous avons ainsi constaté que ces erreurs
+              étaient dues à de mauvaises valeurs et que celles-ci se comptaient par dizaines. Voici quelques
+              images tests obtenues :
+            </p>
+
+            <div class="text-center">
+              <img class="responsiveimg" src="assets/img/figure40.png" alt="(a) Manque les chiffres, (b) Chiffres mal copiés et manque du quadrillage, (c) Mauvaise taille de la grille et (d) Mauvaise taille des chiffres">
+            </div>
+
+            <br><br><br>
+          </div>
+
+        </div>
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="copyright">
+            &copy; Copyright <strong>Tripletics</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Imperial
+          -->
+            Designed by <a href="#">Tripletics</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

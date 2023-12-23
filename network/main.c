@@ -1,5 +1,4 @@
 #include "load_picture.h"
-#include "mnist.h"
 #include "network.h"
 #include "save_network.h"
 #include "train_network.h"
@@ -37,13 +36,13 @@ int testnetwork() {
       p++;
       }*/
 
-    printf("%zu value\n", use_network(network));
+    printf("%d value\n", use_network(network));
     save(network);
     printf("save done\n");
     // free_network(network);
-    struct Neural** network2 = initfromfile(e);
+    struct Neural** network2 = initfromfile("test2.txt");
     set_network(network2, array, 784);
-    printf("%zu value\n", use_network(network2));
+    printf("%d value\n", use_network(network2));
 
     // test for  findvalue in text file
     /*
@@ -66,36 +65,35 @@ int testnetwork() {
 }
 
 void trainmnist() {
-    load_mnist();
+    //load_mnist();
     e[0] = 784;
     srand(time(NULL));
-    struct Neural** network = initfromfile(e);
+    struct Neural** network = initnetwork();
     size_t z = 0;
-    printf("%i \n",NUM_TEST);
-    double** train2 = malloc(sizeof(double**) * NUM_TEST);
-    while (z < NUM_TEST) {
+    double** train2 = malloc(sizeof(double**) * 0);
+    while (z < 1) {
         *(train2 + z) = malloc(sizeof(double*) * e[0]);
         size_t y = 0;
         while (y < e[0]) {
-            *(*(train2 + z) + y) = test_image[z][y];
+            *(*(train2 + z) + y) = 0; //train_image[z][y];
             y++;
         }
         z++;
     }
-	/*
+   int *train_label = NULL;
     z = 0;
     while (z < 10) {
         train(network, train2, train_label, 60, 60, e[0]);
         z++;
     }
-	*/
+
     int i = 0, found = 0;
-    while (i < NUM_TEST) {
+    while (i < 60000) {
         set_network(network, train2[i], e[0]);
         int res = use_network(network);
         printf("get %i  exepted %i value is egual = %i \n", res, train_label[i],
-            (int)res == test_label[i]);
-        if (test_label[i] == (int)res) {
+            (int)res == train_label[i]);
+        if (train_label[i] == (int)res) {
             found++;
         }
         i++;
@@ -105,36 +103,30 @@ void trainmnist() {
     free_network(network);
 }
 
-
-
-
-
 void save_d() {
 
-    //e[0] = 784;
+    e[0] = 784;
     //load_mnist();
-    //srand(time(NULL));
+    srand(time(NULL));
     // struct Neural **network = initnetwork();
-    //size_t z = 0;
-    //tests
-    //double** train2 = malloc(sizeof(double**) * NUM_TRAIN);
-    /*
-    while (z < NUM_TRAIN) {
+    size_t z = 0;
+    double** train2 = malloc(sizeof(double**) * 0);
+    while (z < 1) {
         *(train2 + z) = malloc(sizeof(double*) * e[0]);
         size_t y = 0;
         while (y < e[0]) {
-            *(*(train2 + z) + y) = train_image[z][y];
+            *(*(train2 + z) + y) = 0;
             y++;
         }
         z++;
     }
-	*/
+
     // free_network(network);
     // save_dataset(train2,train_label,NUM_TRAIN-1,e[0],0);
-     //get_dataset(10,e[0],&tests, &o);
-     //save_dataset(train2,train_label,NUM_TRAIN,e[0],0);
+    // get_dataset(10,e[0],&tests, &o);
+    // save_dataset(train2,train_label,NUM_TRAIN,e[0],0);
 
-     add_dataset_dir("./archive");
+    // add_dataset_dir("./archive");
 }
 
 /*
@@ -150,49 +142,18 @@ void openim()
 }
 */
 
-
-void makeds()
-{
-    e[0] = 784;
-    load_mnist();
-    srand(time(NULL));
-    // struct Neural **network = initnetwork();
-    size_t z = 0;
-    size_t nbt= 0;
-    double** train2 = malloc(sizeof(double**) * NUM_TRAIN);
-    while (z < nbt) {
-        *(train2 + z) = malloc(sizeof(double*) * e[0]);
-        size_t y = 0;
-        while (y < e[0]) {
-            *(*(train2 + z) + y) = train_image[z][y];
-            y++;
-        }
-        z++;
-    }
-
-    // free_network(network);
-     save_dataset(train2,train_label,nbt,e[0],0);
-    // get_dataset(10,e[0],&tests, &o);
-    // save_dataset(train2,train_label,NUM_TRAIN,e[0],0);
-
-    add_dataset_dir("./archive");
-
-
-}
-
-
 void train_ai() {
     srand(time(NULL));
-     struct Neural **network = initnetwork();
-    //struct Neural** network = initfromfile(e);
+    // struct Neural **network = initnetwork();
+    struct Neural** network = initfromfile("test2.txt");
 
     double** dataset = NULL;
     int* output = NULL;
-    size_t nbt = 6300;
-    get_dataset(nbt,e[0], &dataset,&output);
-    train(network, dataset, output, 10, nbt, e[0]);
-    size_t  i = 0;
-    int found = 0;
+    size_t nbt = 61000;
+    get_dataset(nbt, e[0], &dataset, &output);
+    printf("to train %zu\n",nbt);
+    train(network, dataset, output, 10, 61000, e[0]);
+    size_t i = 0, found = 0;
     while (i < nbt) {
         set_network(network, dataset[i], e[0]);
         int res = use_network(network);
@@ -203,7 +164,7 @@ void train_ai() {
         }
         i++;
     }
-    printf("nb good is %i \n", found);
+    printf("nb good is %zu \n", found);
     save(network);
     free_network(network);
     size_t p = 0;
@@ -219,10 +180,9 @@ int main() {
     // testnetwork();
     // testtrain();
     // xor();
-    //trainmnist();
-    //save_d();
+    // trainmnist();
+    // save_d();
     // openim();
     train_ai();
-    //makeds();
     return 0;
 }

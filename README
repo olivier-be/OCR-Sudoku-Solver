@@ -1,0 +1,90 @@
+Projet S3: Soduku OSR
+*********************
+
+1. Compilation
+--------------
+Le projet est doté d'un fichier `shell.nix` contenant l'ensemble des
+dependances du projet
+La compilation de l'ensemble de l'applciation se fait en employant la commande
+`make all`, à la racine du dépot. Les fichiers exécutables seront situés dans 
+le dossier `bin` à la racine du dépot, les bibliotheques seront placees dans le
+dossier `lib` a la racine du depot, et les fichiers temporaires seront places
+dans le dossier `obj` a la racine du depot.
+
+2. Solveur, ligne de commande
+-----------------------------
+Le solver en ligne de commande est après compilation le programme nommé
+`solver`. Il prend en paramètre un chemin absolu ou un chemin relatif par
+rapport au dossier dans lequel il est exécuté vers un fichier contenant
+le sudoku suivant le format suivant:
+```
+... ... ...
+... ... ...
+... ... ...
+
+... ... ...
+... ... ...
+... ... ...
+
+... ... ...
+... ... ...
+... ... ...
+```
+Avec chaque point représentant une case vide, ou si le point est remplacer par
+un chiffre, un chiffre.
+
+3. Architecture du code
+-----------------------
+Le code est séparer en différentes parties simplifiant son développement
+
+3.1 image
+Le dossier image contient la bibliothèque responsable du chargement chargement
+des images dans l'application.
+
+3.2 solver
+Le dossier solver contient la bibliothèque responsable de la résolution du
+sudoku ainsi que un fichier `main.c` pour l'application en ligne de commande
+
+3.3 gui
+Le dossier gui contient l'interface graphique permetant de tout rassembler
+
+3.4 ai
+Le dossier ai contient les codes responsable de l'inteligence artificielle
+
+Pour cree un nouveau dataset ou en modifier un.
+Vous devez aller dans network/main.c
+Ensuite changer get_dataset et add_dataset.
+Puis changer le nom de votre ficher qui contient des images de 28x28.
+par archive et renomer le ficher pour obtenir 0,1 , 2 ,3 ,4 ,5 ,6 ,7 ,8 ,9.
+copier votre archive/ , dataset.txt dans le fichier bin puis run ./network.
+
+Pour entrainer l'ia vous devez avoir un dataset.
+Vous devez aller dans network/main.c
+decommenter train ai et commenter les autre dans le main.
+ensuite changer de mode soit load un ia ou cree un ia de puis zero.
+en changant la position des commentaire dans le train_ai.
+dataset.txt dans le fichier bin puis run ./network.
+
+
+3.5 script
+Le dossier script contient des scripts utilitaire permetant de formater
+l'ensemble du code automatiquement ainsi que d'indiquer des avertissements
+supplementaires
+
+4. utilitaire
+-------------
+Differents utilitaire sont utilises dans ce code
+
+4.1 Makefile
+Le makefile fournis differentes commandes:
+- `all` compile l'integralite du projet
+- `clean` supprime les fichiers de compilation
+- `mrproper` supprime les fichiers de compilation et exécutables
+- `dirs` creer les repertoires
+
+4.2 scripts
+Le dossier script contients deux script:
+- `format.sh` ce script appel `clang-format` sur l'ensemble des fichiers du 
+	projet
+- `warning.sh` ce script appel `clang-tidy` sur l'ensemble des fichiers du
+	projet
